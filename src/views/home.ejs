@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="css/styles.css">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        </head>
+        <body>
+
+                <div class="topnav">
+                    <a class="active" href="/">Home</a>
+                    <a href="/create">Create</a>                   
+                </div>
+
+                <div style="padding-left:16px">
+                    <h2>List User</h2>
+                    <p>Some content..</p>
+
+                    <table class="w3-table-all">
+                        <thead>
+                          <tr class="w3-red">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Chức Năng</th>
+                            
+                          </tr>
+                        </thead>
+
+                        <% listUsers.forEach(function(user) { %>
+                            <tr>
+                                <td>
+                                    <%= user.id %>
+                                </td>
+                                <td>
+                                    <%= user.email %>
+                                </td>
+                                <td>
+                                    <%= user.name %>
+                                </td>
+                                <td>
+                                    <%= user.city %>
+                                </td>
+                                <td>
+                                    <a href="/update?idUser=<%= user.id %>">Edit</button>
+
+                                    <form action="/delete?idDelete=<%= user.id %>" method="post">
+                                        <button>Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                        
+                      </table>
+                </div>
+
+        </body>
+    </html>
