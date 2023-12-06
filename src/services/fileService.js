@@ -11,7 +11,7 @@ const uploadSingleFile = async (fileObject) => {
     
     // save => public/images/upload
     // remember to create the upload folder first
-    let uploadPath = path.resolve(__dirname, "../public/images/upload")
+    let uploadPath = path.resolve(__dirname, "../public/images/upload/")
 
     // get img extension
     let extName = path.extname(fileObject.name)
@@ -23,11 +23,14 @@ const uploadSingleFile = async (fileObject) => {
     let finalName = `${baseName}-${Date.now()}${extName}`
     let finalPath = `${uploadPath}/${finalName}`
 
+    console.log(">>> finalPath: ",finalPath);
+
     try{
         await fileObject.mv(finalPath)
+        let relativePath = finalPath.replace(path.resolve(__dirname, "../public"), "");
         return {
             status: "thanh cong",
-            path: finalPath,
+            path: relativePath,
             error: null
         }
     }catch(err) {
@@ -42,7 +45,7 @@ const uploadSingleFile = async (fileObject) => {
 
 const uploadMultipleFiles = async (filesArr) => {
     try{
-        let uploadPath = path.resolve(__dirname, "../public/images/upload")
+        let uploadPath = path.resolve(__dirname, "../public/images/upload/")
         let resultArr = []
         let countSuccess = 0
         
@@ -55,7 +58,7 @@ const uploadMultipleFiles = async (filesArr) => {
 
             // create final path: eg: /upload/your-image.png
             let finalName = `${baseName}-${Date.now()}${extName}`
-            let finalPath = `${uploadPath}/${finalName}`
+            let finalPath = `${uploadPath}\\${finalName}`
 
             try{
                 await filesArr[i].mv(finalPath)

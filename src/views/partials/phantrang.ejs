@@ -1,0 +1,29 @@
+<% if(soTrang!=0) { %>
+    <div class="row mt-5">
+        <div class="col text-center">
+            <div class="block-27">
+                <ul>
+                    <% 
+                        const pre = curPage <= 1 ? curPage : curPage - 1; 
+                        const next = curPage >= soTrang ? curPage : parseInt(curPage) + 1            
+                    %>
+                    <li><a style="font-size: 25px; font-weight: bolder;" href="/?page=<%=pre%>">&lt;</a></li>
+
+                    <% for(var i=1; i <=soTrang; i++) { 
+                        var active="" ; 
+                        if(i == curPage) active="active" ; %>
+        
+                      <li class="<%=active%>">
+                        <a style="font-size: 18px; font-weight: bolder;" class="" href="/?page=<%=i%>">
+                          <%=i%>                          
+                        </a>
+                      </li>
+        
+                      <% } %>
+                                              
+                    <li><a style="font-size: 25px; font-weight: bolder;" href="/?page=<%=next%>">&gt;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<% } %>

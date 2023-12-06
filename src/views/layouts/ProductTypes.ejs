@@ -1,0 +1,21 @@
+
+            <ul class="p-0">
+              <% menuCha.forEach(function(menucha) { %>   
+                  <li class="nav-item dropdown" style="width: 300px;">
+                      <a href="/typesSP?id_trongNgoaiNuoc=<%= menucha._id %>" class="nav-link dropdown-toggle" href="#" id="dropdown04.1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <%= menucha.TenTheLoaiTrongNgoaiNuoc %> 
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown04.1">
+                          <% if (menucha.TenTheLoaiTrongNgoaiNuoc === "Trong Nước") { %>
+                              <% menuCon.forEach(function(menucon) { %>  
+                                  <a class="dropdown-item" href="#"><%= menucon.TenLoaiSP %></a>
+                              <% }); %>
+                          <% } else if (menucha.TenTheLoaiTrongNgoaiNuoc === "Ngoài Nước") { %>
+                              <% menuCon.forEach(function(menucon) { %>  
+                                  <a class="dropdown-item" href="#"><%= menucon.TenLoaiSP %></a>
+                              <% }); %>
+                          <% } %>
+                      </div>
+                  </li>
+              <% }); %>
+          </ul>

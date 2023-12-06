@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Trang Admin Quản Lý</title>
+    <link rel="shortcut icon" href="User_KH/images/logo-KTT1.ico" type="image/x-icon">
+
+    <!-- Custom fonts for this template-->
+    <link href="User_Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="User_Admin/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        .pagination-container {
+          display: flex;
+          justify-content: center;
+          margin-top: 50px;
+        }
+      
+        .pagination {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      
+        .page-item {
+          /* margin: 0 5px; Khoảng cách giữa các trang */
+        }
+      </style>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include("../User_Admin/partials_admin/sidebar_navbar.ejs") %>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <%- include("../User_Admin/partials_admin/header_navbar.ejs") %>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Trang quản lý sản phẩm</h1>
+                        <a href="/create-sp" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Thêm Sản Phẩm</a>
+                    </div>
+                
+                    <!-- Content Row -->
+                    <div class="row">
+                
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Earnings (Monthly)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Earnings (Annual)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Pending Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Content Row -->
+                
+                    <!-- body -->
+                    <div class="row">
+                        <table class="table table-hover">
+                            <thead>                                
+                              <tr style="background-color: #DC143C; color: white; font-size: 18px; ">
+                                <!-- <th style="width: 10px;text-align: center; vertical-align: middle;">ID</th> -->
+                                <th style="width: 150px;text-align: center; vertical-align: middle;">Tên SP</th>
+                                <th style="text-align: center; vertical-align: middle;">Giá mới</th>
+                                <th style="text-align: center; vertical-align: middle;">Giá cũ</th>
+                                <th style="text-align: center; vertical-align: middle;">Tồn kho</th>
+                                <th style="text-align: center; vertical-align: middle;">Đã bán</th>
+                                <th style="text-align: center; vertical-align: middle;">Lượt đánh giá</th>
+                                <th style="text-align: center; vertical-align: middle;">Sale New</th>
+                                <th style="width: 250px; text-align: center; vertical-align: middle; ">Mô tả</th>
+                                <th style="text-align: center; vertical-align: middle;">Hình Ảnh</th>
+                                <th style="text-align: center; vertical-align: middle;">Chức Năng</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                             
+                                  <!-- Hiển thị all sản phẩm  -->
+                                  <% sanpham.forEach(function(allsp) { %>  
+                                      <tr style="font-weight: bold; color: #180766; font-size: 18px; text-align: center;">                                            
+                                          <!-- <td>id</td> -->
+                                          <td><%= allsp.TenSP %></td>
+                                          <td><%= formatCurrency(allsp.GiaBan) %></td>                                  
+                                          <td><%= formatCurrency(allsp.GiaCu) %></td>                                  
+                                          <td><%= allsp.SoLuongTon %></td>                                  
+                                          <td><%= allsp.SoLuongBan %></td>                                  
+                                          <td><%= allsp.SoLuotDanhGia %></td>                                  
+                                          <td><%= allsp.Sale_New %></td>                                  
+                                          <td style=" padding: 10px;"><%= allsp.MoTa %></td>                                  
+                                          <td style="text-align: center; vertical-align: middle;">
+                                              <img style="height: 150px; width: 150px;" src="images/upload/<%= getRelativeImagePath(allsp.Image) %>" class="img-fluid" alt="Image">
+                                          </td>                                  
+                                          <td style="text-align: center; vertical-align: middle;">
+                                            <a 
+                                                class="btn btn-success button-SUA-XOA" 
+                                                href="/update-sp?idUpdateSp=<%= allsp._id %>">Chỉnh Sửa</a>   
+                                                
+                                            <form action="/delete-sp" method="post" style="display: inline;">
+                                                  <input type="hidden" name="idRemove" value="<%= allsp._id %>">
+                                                <button class="btn btn-danger button-SUA-XOA" >DELETE</button>
+                                            </form>
+                                        </td>                                  
+                                      </tr>
+                                    <% }); %>
+                                  
+                             
+                            </tbody>
+                          </table>
+                    </div>                    
+                </div>
+                <!-- /.container-fluid -->
+                                    
+                <div class="pagination-container">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                        <% 
+                          const pre = curPage <= 1 ? curPage : curPage - 1; 
+                          const next = curPage >= soTrang ? curPage : parseInt(curPage) + 1            
+                        %>
+                            <li class="page-item">
+                                <a class="page-link" style=" font-weight: bolder;" href="/searchQlsp?page=<%=pre%>">
+                                    &lt;
+                                </a>
+                            </li>
+                        <% for(var i=1; i <=soTrang; i++) { 
+                            var active="" ; 
+                            if(i == curPage) active="active" ; %>
+                            <li class="page-item <%=active%>">
+                                <a class="page-link" style="font-size: 18px; font-weight: bolder;"  href="/searchQlsp?page=<%=i%>">
+                                    <%=i%>                          
+                                </a>
+                            </li>                
+                        <% } %>                                                      
+                            <li class="page-item">
+                                <a class="page-link" style=" font-weight: bolder;" href="/searchQlsp?page=<%=next%>">
+                                    &gt;
+                                </a>
+                            </li>                     
+                        </ul>
+                    </nav>
+                </div>               
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bạn có muốn đăng xuất không?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Chọn nút "Đăng Xuất" để xác nhận đăng xuất tài khoản.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                    <a class="btn btn-primary" href="/dang-xuat-admin">Đăng Xuất</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="User_Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="User_Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="User_Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="User_Admin/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="User_Admin/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="User_Admin/js/demo/chart-area-demo.js"></script>
+    <script src="User_Admin/js/demo/chart-pie-demo.js"></script>
+
+    <script>
+        function getRelativeImagePath(absolutePath) {
+                const rootPath = '<%= rootPath.replace(/\\/g, "\\\\") %>';
+                const relativePath = absolutePath ? absolutePath.replace(rootPath, '').replace(/\\/g, '/').replace(/^\/?images\/upload\//, '') : '';
+                return relativePath;
+            }
+    
+    
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
+    </script>
+
+</body>
+
+</html>

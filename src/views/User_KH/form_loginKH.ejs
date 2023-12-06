@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng nhập KH</title>
+    <link rel="shortcut icon" href="User_KH/images/logo-KTT1.ico" type="image/x-icon">
+
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="User_KH/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="User_KH/css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+
+    <!-- Thêm Thư Viện Flash -->
+    <script src="link-to-flash-library.js"></script>
+    <!-- Ví dụ với thư viện sweetalert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</head>
+<body>
+
+   
+
+    <div class="main">
+
+         <!-- Sing in  Form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="User_KH/images/signin-image.jpg" alt="sing up image"></figure>
+                        <a class="signin-image-link" style="color: rgb(3, 3, 57); font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif;  cursor: pointer;">Đăng Ký Tài Khoản</a>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign in</h2>
+                        <form method="POST" class="register-form" id="login-form" action="/dang-nhap">
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input required type="text" name="taikhoan" id="your_name" placeholder="Nhập Tài Khoản Đăng Nhập Của Bạn"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input required type="password" name="matkhau" id="your_pass" placeholder="Nhập Tài Mật Khẩu Của Bạn"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Đăng Nhập"/>
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <span class="social-label">Or login with</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content" style="display: none;">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" action="/dang-ky" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="account"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input required type="text" name="account" id="account" placeholder="Nhập Tài Khoản Đăng Nhập Của Bạn"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input required type="text" name="name" id="name" placeholder="Nhập Họ Tên Của Bạn "/>
+                            </div>
+                            <div class="form-group">
+                                <label for="address"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input required type="text" name="address" id="address" placeholder="Nhập Địa Chỉ Của Bạn "/>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input required type="phone" name="phone" id="phone" placeholder="Nhập Số Điện Thoại Của Bạn "/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input required type="email" name="email" id="email" placeholder="Nhập Email Của Bạn "/> 
+                                <span id="email-error" style="color: red; display: none;"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input required type="password" name="pass" id="pass" placeholder="Nhập Mật Khẩu Của Bạn "/>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                            </div> -->
+                            <div class="form-group">                                
+                                <input required type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>Bạn có đồng ý với điều khoản <a href="#" class="term-service">của chúng tôi</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng Ký Tài Khoản"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="User_KH/images/signup-image.jpg" alt="sing up image"></figure>
+                        <a class="signup-image-link"  style="color: rgb(3, 3, 57); font-size: 20px; font-weight: bold; font-family: 'Times New Roman', Times, serif; cursor: pointer;">Đăng Nhập Tài Khoản</a>
+                    </div>
+                </div>
+            </div>
+        </section>     
+        
+    </div>
+
+    <script type="text/javascript">
+        function validateEmail() {
+            const emailInput = document.getElementById("email");
+            const emailError = document.getElementById("email-error");
+    
+            const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    
+            if (!emailRegex.test(emailInput.value)) {
+                emailError.style.display = "block";
+                emailError.textContent = "Định dạng email không hợp lệ";
+            } else {
+                emailError.style.display = "none";
+                emailError.textContent = ""; // Xóa nội dung thông báo
+            }
+        }
+    
+        // Gọi hàm validateEmail khi người dùng nhấn nút Register
+        document.getElementById("signup").addEventListener("click", function () {
+            validateEmail(); // Kiểm tra định dạng email trước khi gửi form
+        });
+    </script>
+    
+    <script>
+        // Đoạn mã xử lý Ajax trong dang ky
+        $("#register-form").submit(function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/dang-ky",
+                data: $(this).serialize(),
+                success: function (response) {
+                    // Kiểm tra xem đăng nhập có thành công hay không
+                    if (response.success) {
+                        // Hiển thị thông báo thành công
+                        flashLibrary.showSuccessMessage(response.message);
+                    } else {
+                        // Hiển thị thông báo lỗi
+                        flashLibrary.showErrorMessage(response.message);
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                    // Hiển thị thông báo lỗi
+                    flashLibrary.showErrorMessage('Tồn tại tài khoản, Vui lòng kiểm tra lại.');
+                },
+            });
+        });
+
+        // ajax dang nhap
+        $("#login-form").submit(function (event) {
+            // event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/dang-nhap",
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        // flashLibrary.showSuccessMessage(response.message);
+
+                        // Redirect to home page after successful login
+                        window.location.href = '/';
+                    } else {
+                        flashLibrary.showErrorMessage('Sai tài khoản hoặc mật khẩu.');
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                    // Hiển thị thông báo lỗi
+                    flashLibrary.showErrorMessage('Sai tài khoản hoặc mật khẩu.');
+                },
+            });
+        });
+
+        var flashLibrary = {
+            showSuccessMessage: function (message) {
+                // Hiển thị thông báo thành công với sweetalert2
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành Công!',
+                    text: message,
+                });
+            },
+            showErrorMessage: function (message) {
+                // Hiển thị thông báo lỗi với sweetalert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi rồi cụ ơi!',
+                    text: message,
+                });
+            },
+            // Các hàm khác...
+        };
+
+    </script>
+
+    <script type="text/javascript">
+        $(".signin-image-link").click(function () {
+            $(".signin-content").hide();
+            $(".signup-content").show();
+        })
+
+        $(".signup-image-link").click(function () {
+            $(".signin-content").show();
+            $(".signup-content").hide();
+        })
+    </script>
+
+    
+
+    <!-- JS -->
+    <script src="User_KH/vendor/jquery/jquery.min.js"></script>
+    <script src="User_KH/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

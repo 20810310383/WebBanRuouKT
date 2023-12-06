@@ -1,0 +1,104 @@
+const TaiKhoan_KH = require("../models/TaiKhoan_KH")
+const aqp = require('api-query-params')
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
+//  --------------------------------------------
+
+module.exports = {
+    homeLoginKH: (req, res) => {
+
+        res.render("User_KH/form_loginKH.ejs")
+    },
+
+    dangKyKH: async (req, res) => {
+        try {
+            let TenDangNhap = req.body.account
+            let HoTen = req.body.name
+            let DiaChi = req.body.address
+            let SDT = req.body.phone
+            let Email = req.body.email
+            let MatKhau = req.body.pass
+            
+
+            console.log("TenDangNhap: ", TenDangNhap);
+            console.log("MatKhau: ", MatKhau);
+            console.log("HoTen: ", HoTen);
+            console.log("DiaChi: ", DiaChi);
+            console.log("SDT: ", SDT);
+            console.log("Email: ", Email);
+        
+            // Check if the username is already taken
+            const kt = await TaiKhoan_KH.findOne({ TenDangNhap:TenDangNhap });
+            if (kt) {
+                // return res.status(400).json({ message: 'Tài Khoản Đã Tồn Tại' });
+                return res.status(400).json({ success: false, message: 'Tài Khoản Đã Tồn Tại' });
+                // return res.status(400).send("Tài Khoản Đã Tồn Tại")
+            }
+        
+            if (!MatKhau) {
+                return res.status(400).json({ message: 'Invalid password' });
+            }                        
+
+            // Create a new user
+            let newUser = await TaiKhoan_KH.create({
+                TenDangNhap,
+                MatKhau,
+                HoTen,
+                DiaChi,
+                SDT,
+                Email
+            });
+        
+            return res.status(201).json({ success: true, message: 'Đăng ký tài khoản thành công' });
+            // res.status(201).json({ message: 'Đăng ký tài khoản thành công' });
+            // return res.status(200).json({                
+            //     errCode: 0,
+            //     data: newUser
+            // })
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ success: false,message: 'Internal server error' });
+        }        
+    },
+
+    dangNhapKH: async (req, res) => {
+        try {
+            let taikhoan = req.body.taikhoan
+            let matkhau = req.body.matkhau
+            var sessions
+      
+          // Check if the user exists
+            const user = await TaiKhoan_KH.findOne({ TenDangNhap: taikhoan, MatKhau: matkhau });
+            if (!user) {
+                return res.status(401).send("<span style=\"color: red; font-weight: bold;\">sai tài khoản or mật khẩu.</span>");
+            }
+
+            req.session.loggedIn = true
+			req.session.taikhoan = taikhoan
+            sessions=req.session;
+            console.log("sessions:",sessions);
+            // test
+            req.session.ten = "tu mo";
+
+            console.log("user: ", user);    
+        
+            // Create and sign a JWT token
+            //   const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+        
+            // res.status(200).json({ success: true, message: 'Đăng nhập thành công' });
+            res.redirect(`/`);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+    },
+
+    getLogoutKH: (req, res) => {
+        if (req.session.taikhoan) {
+            req.session.destroy();
+        }
+        // req.logout();
+        res.redirect("/");
+    },
+}
