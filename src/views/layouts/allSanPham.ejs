@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/style.css">
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oL7JN3KMWF6dy0wKXPsej4lM4PUn3SLDuiZJ+LUEO4A=" crossorigin="anonymous"></script>
+
+
     <style>
       .nav-item.dropdown .nav-link {
         display: flex;
@@ -136,10 +139,10 @@
                             
                         </div>
                     </div>
-
                     <div class="row">
-                        <% if (allSP && allSP.length > 0) { %>
-                            <% allSP.forEach(function(allsp) { %>
+                      <% if (allSP && allSP.length > 0) { %>
+                        <% allSP.forEach(function(allsp) { %>
+                          
                             <div class="col-md-4 d-flex">
                                 <div class="product ftco-animate">
                                     <div class="img d-flex align-items-center justify-content-center" style="background-image: url('images/upload/<%= getRelativeImagePath(allsp.Image) %>');">
@@ -199,11 +202,13 @@
                                     </div>
                                 </div>
                             </div>
+                          
                             <% }); %> 
                         <% } else { %>
                                 <p>Không tìm thấy sản phẩm</p>
                             <% } %>
                     </div>
+                  
 
                     <% if(soTrang!=0) { %>
                         <div class="row mt-5">

@@ -1,4 +1,5 @@
 const TaiKhoan_KH = require("../models/TaiKhoan_KH")
+const GioHang = require("../models/GioHang")
 const aqp = require('api-query-params')
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -72,14 +73,27 @@ module.exports = {
             const user = await TaiKhoan_KH.findOne({ TenDangNhap: taikhoan, MatKhau: matkhau });
             if (!user) {
                 return res.status(401).send("<span style=\"color: red; font-weight: bold;\">sai tài khoản or mật khẩu.</span>");
+            }          
+
+
+            // Cập nhật req.session.cartId nếu user đã đăng nhập và giỏ hàng đã được tạo
+            if (req.session.loggedIn && req.session.cartId) {
+                // Lấy thông tin giỏ hàng từ database
+                const cart = await GioHang.findById(req.session.cartId);
+
+                // Cập nhật MaKH của giỏ hàng để liên kết với người dùng đăng nhập
+                await GioHang.findByIdAndUpdate(req.session.cartId, { MaKH: user._id });
+
+                // Cập nhật req.session.taikhoan với tên đăng nhập của người dùng
+                req.session.taikhoan = taikhoan;
+
+                console.log("Đã liên kết giỏ hàng với người dùng:", user._id);
             }
 
             req.session.loggedIn = true
-			req.session.taikhoan = taikhoan
+            req.session.taikhoan = taikhoan
             sessions=req.session;
             console.log("sessions:",sessions);
-            // test
-            req.session.ten = "tu mo";
 
             console.log("user: ", user);    
         

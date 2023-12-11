@@ -1,4 +1,4 @@
-<div class="order-lg-last btn-group">
+<!-- <div class="order-lg-last btn-group">
 	<a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	  <span class="flaticon-shopping-bag"></span>
 	  <div class="d-flex justify-content-center align-items-center"><small>3</small></div>
@@ -30,4 +30,54 @@
 			<span class="ion-ios-arrow-round-forward"></span>
 		  </a>
 	</div>
+</div> -->
+
+
+
+
+<!-- Thêm mã HTML và script sau vào file giohang.ejs -->
+<div class="order-lg-last btn-group">
+    <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<span  id="cart-info1"></span>
+        <span class="flaticon-shopping-bag"></span>
+        <div class="d-flex justify-content-center align-items-center" id="cart-info">
+			<small>Loading...</small>
+        </div>
+		
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <!-- Các sản phẩm trong giỏ hàng sẽ được thêm vào đây -->
+        <a class="dropdown-item text-center btn-link d-block w-100" href="cart.html">
+            View All
+            <span class="ion-ios-arrow-round-forward"></span>
+        </a>
+    </div>
 </div>
+
+<script>
+	// Sử dụng JavaScript để thực hiện request và cập nhật dữ liệu
+	document.addEventListener('DOMContentLoaded', function() {
+		// Thực hiện request lên server để lấy thông tin giỏ hàng
+		fetch('/cart-info')
+			.then(response => response.json())
+			.then(data => {
+				// Định dạng số tiền theo định dạng VND
+				const formattedTotalPrice = new Intl.NumberFormat('vi-VN', {
+					style: 'currency',
+					currency: 'VND',
+				}).format(data.totalPrice || 0);
+
+				// Cập nhật số lượng và tổng giá lên giao diện
+				const cartInfoElement = document.getElementById('cart-info');
+				cartInfoElement.innerHTML = `<small>${data.totalQuaty || 0}</small>`;
+
+				const cartInfoElement1 = document.getElementById('cart-info1');
+				cartInfoElement1.innerHTML = `${formattedTotalPrice || 0}`;
+
+			})
+			.catch(error => {
+				console.error('Error fetching cart info:', error);
+			});
+	});
+
+</script>

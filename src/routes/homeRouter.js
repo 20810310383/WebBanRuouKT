@@ -45,6 +45,12 @@ const {
 
 } = require("../controllers/homeAdminQLSPController")
 
+const {
+    addToCart,
+    getCartInfo
+
+} = require("../controllers/addToCartController")
+
 const router = express.Router();
 //  -------------------------------------------
 
@@ -113,7 +119,10 @@ router.get("/update-sp", hienThiFormUpdateSP)
 router.post("/update-sp", postUpdateSP)
 
 
-
+// them sp vao gio hang
+router.post("/addtocart", addToCart)
+// Lấy thông tin giỏ hàng (tổng số lượng và tổng tiền)
+router.get('/cart-info', getCartInfo);
 
 
 module.exports = router;

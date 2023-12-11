@@ -176,30 +176,30 @@
         });
 
         // ajax dang nhap
-        $("#login-form").submit(function (event) {
-            // event.preventDefault();
+        // $("#login-form").submit(function (event) {
+        //     // event.preventDefault();
 
-            $.ajax({
-                type: "POST",
-                url: "/dang-nhap",
-                data: $(this).serialize(),
-                success: function (response) {
-                    if (response.success) {
-                        // flashLibrary.showSuccessMessage(response.message);
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/dang-nhap",
+        //         data: $(this).serialize(),
+        //         success: function (response) {
+        //             if (response.success) {
+        //                 // flashLibrary.showSuccessMessage(response.message);
 
-                        // Redirect to home page after successful login
-                        window.location.href = '/';
-                    } else {
-                        flashLibrary.showErrorMessage('Sai tài khoản hoặc mật khẩu.');
-                    }
-                },
-                error: function (error) {
-                    console.error(error);
-                    // Hiển thị thông báo lỗi
-                    flashLibrary.showErrorMessage('Sai tài khoản hoặc mật khẩu.');
-                },
-            });
-        });
+        //                 // Redirect to home page after successful login
+        //                 window.location.href = '/';
+        //             } else {
+        //                 flashLibrary.showErrorMessage('Sai tài khoản hoặc mật khẩu.');
+        //             }
+        //         },
+        //         error: function (error) {
+        //             console.error(error);
+        //             // Hiển thị thông báo lỗi
+        //             flashLibrary.showErrorMessage('Sai tài khoản hoặc mật khẩu.');
+        //         },
+        //     });
+        // });
 
         var flashLibrary = {
             showSuccessMessage: function (message) {
