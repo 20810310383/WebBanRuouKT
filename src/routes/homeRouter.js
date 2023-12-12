@@ -47,8 +47,8 @@ const {
 
 const {
     addToCart,
-    getCartInfo
-
+    getCartInfo,
+    getCTCart
 } = require("../controllers/addToCartController")
 
 const router = express.Router();
@@ -122,7 +122,9 @@ router.post("/update-sp", postUpdateSP)
 // them sp vao gio hang
 router.post("/addtocart", addToCart)
 // Lấy thông tin giỏ hàng (tổng số lượng và tổng tiền)
-router.get('/cart-info', getCartInfo);
+router.get('/cart-info', getCartInfo)
+// get form chi tiet cart
+router.get('/detail-cart', getCTCart)
 
 
 module.exports = router;

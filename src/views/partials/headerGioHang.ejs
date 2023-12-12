@@ -37,16 +37,23 @@
 
 <!-- Thêm mã HTML và script sau vào file giohang.ejs -->
 <div class="order-lg-last btn-group">
-    <a href="#" class="btn-cart dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	<!-- data-toggle="dropdown" -->
+    <a href="/detail-cart" class="btn-cart dropdown-toggle dropdown-toggle-split"  aria-haspopup="true" aria-expanded="false">
 		<span  id="cart-info1"></span>
         <span class="flaticon-shopping-bag"></span>
-        <div class="d-flex justify-content-center align-items-center" id="cart-info">
+        <div class="d-flex justify-content-center align-items-center" id="cart-info" >
 			<small>Loading...</small>
-        </div>
-		
+        </div>		
     </a>
     <div class="dropdown-menu dropdown-menu-right">
         <!-- Các sản phẩm trong giỏ hàng sẽ được thêm vào đây -->
+		<!-- <div class="dropdown-item d-flex align-items-start" href="#">
+			<div class="img" style="background-image: url(images/prod-1.jpg);"></div>
+			<div class="text pl-3">
+				<h4>Bacardi 151</h4>
+				<p class="mb-0"><a href="#" class="price">$25.99</a><span class="quantity ml-3">Quantity: 01</span></p>
+			</div>
+		</div> -->
         <a class="dropdown-item text-center btn-link d-block w-100" href="cart.html">
             View All
             <span class="ion-ios-arrow-round-forward"></span>
@@ -69,7 +76,7 @@
 
 				// Cập nhật số lượng và tổng giá lên giao diện
 				const cartInfoElement = document.getElementById('cart-info');
-				cartInfoElement.innerHTML = `<small>${data.totalQuaty || 0}</small>`;
+				cartInfoElement.innerHTML = `<small >${data.totalQuaty || 0}</small>`;
 
 				const cartInfoElement1 = document.getElementById('cart-info1');
 				cartInfoElement1.innerHTML = `${formattedTotalPrice || 0}`;

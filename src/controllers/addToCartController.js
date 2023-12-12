@@ -86,13 +86,13 @@ module.exports = {
         }
     },
 
-    addToCart: async (req, res) => {
+    addToCart2: async (req, res) => {
         try {
             const productId = req.query.productId;
             const qtyy = parseInt(req.body.quantity);
             const qty = !isNaN(qtyy) && qtyy > 0 ? qtyy : 1;
 
-            // Lấy thông tin đăng nhập của khách hàng từ request (giả sử bạn đã thực hiện xác thực)
+            // Lấy thông tin đăng nhập của khách hàng từ request
             const customerAccountId = req.user ? req.user._id : null;
 
             // Kiểm tra xem sản phẩm có tồn tại không
@@ -148,8 +148,89 @@ module.exports = {
         }
     },
 
-
+    addToCart: async (req, res) => {
+        try {
+            const productId = req.query.productId;
+            const qtyy = parseInt(req.body.quantity);
+            const qty = !isNaN(qtyy) && qtyy > 0 ? qtyy : 1;
     
+            // Lấy thông tin đăng nhập của khách hàng từ request
+            const customerAccountId = req.user ? req.user._id : null;
+    
+            // Kiểm tra xem sản phẩm có tồn tại không
+            const product = await SanPham.findById(productId);
+            if (!product) {
+                return res.status(404).json({ message: 'Sản phẩm không tồn tại' });
+            }
+    
+            // Kiểm tra xem giỏ hàng đã tồn tại chưa, nếu chưa thì tạo mới
+            let cart;
+    
+            // Nếu đăng nhập, sử dụng MaTKKH để liên kết với người dùng
+            if (customerAccountId) {
+                cart = await Cart.findOne({ 'cart.MaTKKH': customerAccountId });
+                if (!cart) {
+                    cart = new Cart({
+                        cart: {
+                            items: [],
+                            totalPrice: 0,
+                            totalQuaty: 0,
+                        },
+                        MaTKKH: customerAccountId,
+                    });
+                }
+            } else {
+                // Nếu không đăng nhập, kiểm tra xem có giỏ hàng trong session hay không
+                if (req.session.cartId) {
+                    // Nếu có giỏ hàng, lấy giỏ hàng từ cơ sở dữ liệu
+                    cart = await Cart.findById(req.session.cartId);
+                }
+    
+                // Nếu không có giỏ hàng trong session hoặc database, tạo giỏ hàng mới
+                if (!cart) {
+                    cart = new Cart({
+                        cart: {
+                            items: [],
+                            totalPrice: 0,
+                            totalQuaty: 0,
+                        },
+                        MaTKKH: null,
+                    });
+                }
+            }
+    
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+            const existingItem = cart.cart.items.find((item) => item.productId.equals(productId));
+    
+            if (existingItem) {
+                // Nếu đã có sản phẩm trong giỏ hàng, cập nhật số lượng
+                existingItem.qty += qty;
+            } else {
+                // Nếu chưa có, thêm sản phẩm mới vào giỏ hàng
+                cart.cart.items.push({
+                    productId: product._id,
+                    qty: qty,
+                });
+            }
+    
+            // Cập nhật tổng số lượng và tổng tiền
+            cart.cart.totalQuaty += qty;
+            cart.cart.totalPrice += product.GiaBan * qty;
+    
+            // Lưu giỏ hàng vào cơ sở dữ liệu hoặc session
+            await cart.save();
+    
+            // Lưu cartId vào session nếu user không đăng nhập
+            if (!customerAccountId) {
+                req.session.cartId = cart._id;
+            }
+    
+            return res.status(200).json({ message: 'Đã thêm sản phẩm vào giỏ hàng' });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Lỗi server' });
+        }
+    },    
 
     // Lấy thông tin giỏ hàng (tổng số lượng và tổng tiền)
     getCartInfo: async (req, res) => {
@@ -158,15 +239,48 @@ module.exports = {
             if (!cart) {
                 return res.status(200).json({ totalQuaty: 0, totalPrice: 0 });
             }
+
+            // console.log("cart.cart.items[1]",cart.cart.items[1]);
         
             return res.status(200).json({
                 totalQuaty: cart.cart.totalQuaty,
                 totalPrice: cart.cart.totalPrice,
+                // soLuong: cart.cart.items[1]
             });
 
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Lỗi server' });
         }
+    },
+
+    getCTCart: async (req, res) => {
+        var sessions = req.session;
+        let taikhoan = sessions.taikhoan
+        let loggedIn = sessions.loggedIn
+
+        // Hàm để định dạng số tiền thành chuỗi có ký tự VND
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
+
+        // edit file img
+        function getRelativeImagePath(absolutePath) {
+            const rootPath = '<%= rootPath.replace(/\\/g, "\\\\") %>';
+            const relativePath = absolutePath ? absolutePath.replace(rootPath, '').replace(/\\/g, '/').replace(/^\/?images\/upload\//, '') : '';
+            return relativePath;
+        }
+
+
+        
+
+
+        res.render("layouts/chiTietCart.ejs", {
+            formatCurrency: formatCurrency, 
+            rootPath: '/', 
+            getRelativeImagePath: getRelativeImagePath,
+            logIn: loggedIn, 
+            taikhoan, 
+        })
     },
 }

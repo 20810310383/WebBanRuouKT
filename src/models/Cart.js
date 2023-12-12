@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const SanPham = require("./SanPham")
+const mongoose_delete = require('mongoose-delete');
 
 const Schema = mongoose.Schema;
 
@@ -23,5 +24,5 @@ const CartSchema = new Schema({
     }
 });
 
-
+CartSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 module.exports = mongoose.model('Cart', CartSchema);

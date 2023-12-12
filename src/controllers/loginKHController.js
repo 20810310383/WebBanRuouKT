@@ -1,5 +1,5 @@
 const TaiKhoan_KH = require("../models/TaiKhoan_KH")
-const GioHang = require("../models/GioHang")
+const Cart = require("../models/Cart")
 const aqp = require('api-query-params')
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -52,11 +52,7 @@ module.exports = {
             });
         
             return res.status(201).json({ success: true, message: 'Đăng ký tài khoản thành công' });
-            // res.status(201).json({ message: 'Đăng ký tài khoản thành công' });
-            // return res.status(200).json({                
-            //     errCode: 0,
-            //     data: newUser
-            // })
+
         } catch (error) {
             console.error(error);
             return res.status(500).json({ success: false,message: 'Internal server error' });
@@ -73,34 +69,35 @@ module.exports = {
             const user = await TaiKhoan_KH.findOne({ TenDangNhap: taikhoan, MatKhau: matkhau });
             if (!user) {
                 return res.status(401).send("<span style=\"color: red; font-weight: bold;\">sai tài khoản or mật khẩu.</span>");
-            }          
-
-
-            // Cập nhật req.session.cartId nếu user đã đăng nhập và giỏ hàng đã được tạo
-            if (req.session.loggedIn && req.session.cartId) {
-                // Lấy thông tin giỏ hàng từ database
-                const cart = await GioHang.findById(req.session.cartId);
-
-                // Cập nhật MaKH của giỏ hàng để liên kết với người dùng đăng nhập
-                await GioHang.findByIdAndUpdate(req.session.cartId, { MaKH: user._id });
-
-                // Cập nhật req.session.taikhoan với tên đăng nhập của người dùng
-                req.session.taikhoan = taikhoan;
-
-                console.log("Đã liên kết giỏ hàng với người dùng:", user._id);
-            }
+            }                      
 
             req.session.loggedIn = true
             req.session.taikhoan = taikhoan
-            sessions=req.session;
-            console.log("sessions:",sessions);
+            req.session.userId = user._id
+            sessions=req.session
+            console.log("sessions:",sessions)
 
-            console.log("user: ", user);    
+
+            let cart = await Cart.findOne({ 'cart.MaTKKH': user._id })
+
+            if (!cart) {
+                cart = new Cart({ 
+                    cart: { 
+                            items: [], 
+                            totalPrice: 0, 
+                            totalQuaty: 0 
+                        },
+                        MaTKKH: user._id,
+                        })
+                await cart.save()
+            }        
+            
+            
+            // Set the cart information in the session
+            req.session.cartId = cart._id
+
+            console.log("user: ", user)            
         
-            // Create and sign a JWT token
-            //   const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
-        
-            // res.status(200).json({ success: true, message: 'Đăng nhập thành công' });
             res.redirect(`/`);
         } catch (error) {
             console.error(error);
@@ -108,11 +105,26 @@ module.exports = {
         }
     },
 
-    getLogoutKH: (req, res) => {
+    getLogoutKH: async (req, res) => {
+        // if (req.session.taikhoan) {
+        //     req.session.destroy();
+        // }
+        // // req.logout();
+        // res.redirect("/");
+
         if (req.session.taikhoan) {
+            // Kiểm tra xem có giỏ hàng trong session hay không
+            if (req.session.cartId) {
+
+                // khi login thì sẽ có giỏ hàng khi add, khi logout đi sẽ xóa luôn trong db đi
+                // await Cart.findByIdAndDelete(req.session.cartId);
+                await Cart.deleteById(req.session.cartId);
+
+                // Nếu có giỏ hàng, xóa giỏ hàng
+                req.session.cartId = null;
+            }
             req.session.destroy();
         }
-        // req.logout();
-        res.redirect("/");
+        res.redirect("/")
     },
 }

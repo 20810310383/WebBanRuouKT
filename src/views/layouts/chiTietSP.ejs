@@ -121,6 +121,7 @@
                     </p>
     				<p style="font-size: 18px;"><%= CTSP.MoTa %></p>
 					<form id="form-addtocart" action="/addtocart?productId=<%= CTSP._id %>" method="POST">
+						
 						<div class="row mt-4">
 							<div class="input-group col-md-6 d-flex mb-3">
 								<span class="input-group-btn mr-2">
@@ -137,11 +138,10 @@
 							</div>
 							<div class="w-100"></div>
 							<div class="col-md-12">
-								<a href="#" class="mr-2" style="color: #ff0000; font-size: 18px;"><span style="color: rgb(1, 1, 71); font-size: 18px;">Số lượng tồn: </span> <%= CTSP.SoLuongTon %> </a>
+								<a href="#" class="mr-2" style="color: #ff0000; font-size: 18px;"><span style="color: rgb(1, 1, 71); font-size: 18px;"></span> </a>
 							</div>
 						</div>
-						<!-- <p><button type="submit" class="btn btn-primary py-3 px-5 mr-2">Add to Cart</button><a href="#" class="btn btn-primary py-3 px-5">Buy now</a></p> -->
-						<p><button type="submit" class="btn btn-primary py-3 px-5">Add to Cart</button></p>
+						<button style="font-size: 18px; justify-items: center;align-items: center; display: flex;" type="submit" class="btn btn-primary py-3 px-5">Add to Cart</button>
 					</form>
 					          	
     			</div>
